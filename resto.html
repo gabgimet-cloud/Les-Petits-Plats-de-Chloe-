@@ -280,7 +280,7 @@
                 </div>
                 <div class="card-item">
                     <div class="card-info">
-                        <h4>Risotto créatif aux légumes oubliés</h4>
+                        <h4>Risotto creative aux légumes oubliés</h4>
                         <p>Riz Carnaroli d'exception lié au vieux parmesan, légumes racines rôtis glacés.</p>
                     </div>
                     <span class="card-price">18,50 €</span>
@@ -356,7 +356,7 @@
                 </div>
 
                 <div class="field-group">
-                    <span class="field-group label" style="margin-bottom:12px;">Créneaux de services disponibles</span>
+                    <span class="field-group label" style="margin-bottom:12px; display:block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--or-mat); font-weight: 500;">Créneaux de services disponibles</span>
                     <div class="slots-matrix" id="matrixContainer"></div>
                     <input type="hidden" id="luxeTimeValue" required>
                 </div>
@@ -404,12 +404,11 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Les Petits Plats de Chloé. Tous droits réservés. L'excellence au millimeter.</p>
+            <p>© 2026 Les Petits Plats de Chloé. Tous droits réservés. L'excellence au millimètre.</p>
         </div>
     </footer>
 
     <script>
-        // 1. Script Scroll Reveal (Effet d'apparition haut de gamme au défilement)
         function checkScrollReveal() {
             const reveals = document.querySelectorAll('.reveal');
             reveals.forEach(reveal => {
@@ -424,7 +423,6 @@
         window.addEventListener('scroll', checkScrollReveal);
         window.addEventListener('load', checkScrollReveal);
 
-        // 2. Commutation de la Carte (Menu)
         function toggleMenuCategory(evt, categoryId) {
             document.querySelectorAll('.menu-display').forEach(grid => grid.classList.remove('active'));
             document.querySelectorAll('.switch-tab').forEach(btn => btn.classList.remove('active'));
@@ -432,7 +430,6 @@
             evt.currentTarget.classList.add('active');
         }
 
-        // 3. Générateur de sélecteur de dates (14 jours glissants)
         function initLuxeDatePicker() {
             const picker = document.getElementById('luxeDatePicker');
             const formatConfig = { weekday: 'long', day: 'numeric', month: 'long' };
@@ -453,7 +450,6 @@
             refreshTimeMatrix();
         }
 
-        // 4. Matrice Horaire intelligente basée sur l'image Google Maps transmise
         function refreshTimeMatrix() {
             const dateValue = document.getElementById('luxeDatePicker').value;
             const container = document.getElementById('matrixContainer');
@@ -462,18 +458,18 @@
             hiddenInput.value = "";
             container.innerHTML = "";
 
-            const targetDay = new Date(dateValue).getDay(); // 0: Dim, 1: Lun, 2: Mar...
+            const targetDay = new Date(dateValue).getDay();
 
             const midiBlocks = ["12h00", "12h30", "13h00", "13h30", "14h00"];
             const soirBlocks = ["19h00", "19h30", "20h00", "20h30", "21h00", "21h30", "22h00"];
             let hoursToRender = [];
 
-            if (targetDay === 1) { // Lundi fermé
+            if (targetDay === 1) {
                 container.innerHTML = `<div class="closed-alert">Maison fermée le lundi</div>`;
                 return;
-            } else if (targetDay === 4 || targetDay === 5 || targetDay === 6) { // Jeu, Ven, Sam
+            } else if (targetDay === 4 || targetDay === 5 || targetDay === 6) {
                 hoursToRender = [...midiBlocks, ...soirBlocks];
-            } else { // Mar, Mer, Dim (Midi uniquement selon la fiche)
+            } else {
                 hoursToRender = [...midiBlocks];
             }
 
@@ -490,7 +486,6 @@
             });
         }
 
-        // 5. Soumission et confirmation haut de gamme
         function processLuxeBooking(e) {
             e.preventDefault();
             const name = document.getElementById('luxeName').value;
@@ -506,6 +501,11 @@
             e.target.reset();
             refreshTimeMatrix();
         }
+
+        window.onload = initLuxeDatePicker;
+    </script>
+</body>
+</html>
 
         // Init au lancement
         window.onload = initLuxeDatePicker;
